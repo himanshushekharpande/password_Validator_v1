@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Password Authentication
+        </div>
+        <form action="/">
+            <input type="password" onkeyup="run()" placeholder="Enter the password">
+            <span class="show">SHOW</span>
+            <div class="message"></div>
+
+        </form>
+    </div>
+
+    <script>
+        const input = document.querySelector('input');
+        const message = document.querySelector('.message');
+        const show = document.querySelector('.show');
+
+        let WeakPassword = /[a-z]/;
+        let MediumPassword = /\d+/;
+        let StrongPassword = /.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/;
+
+        function run() {
+            if(input.value !== '') {
+                show.style.display = "block"
+            
+            
+            if((input.value.length <= 6) && (input.value.match(WeakPassword) || input.value.match(MediumPassword) || input.value.match(StrongPassword))){
+                message.textContent = "Password is too weak";
+            } else if (input.value.length > 6 && input.value.match(WeakPassword) && input.value.match(MediumPassword)) {
+                message.textContent = "Better but still weak";
+            }
+
+            if (input.value.length > 13 && input.value.match(WeakPassword) && input.value.match(MediumPassword) && input.value.match(StrongPassword)) {
+                message.textContent = "Strong password accepted"
+            }
+        show.onclick = function() {
+            if(input.type == "password") {
+                input.type = "text";
+                show.textContent = "HIDE";
+                show.style.color = "red";
+            } else {
+                input.type = "password";
+                show.textContent = "SHOW";
+                show.style.color = "black";
+            }
+        }
+        }
+        else { 
+            show.style.display = "none"
+            message.textContent = ''
+        }
+        }
+
+
+    </script>
+
+</body>
+</html>
